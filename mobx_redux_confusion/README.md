@@ -23,11 +23,11 @@ The solution therefore is to introduce a state management library like MobX or R
 
 Redux is influenced by functional programming principles. It can be done in JavaScript, but a lot of people come from an object-oriented background and have difficulties to adopt functional programming principles in the first place. In Redux your state is immutable. Instead of mutating your state you always return a new state. You don't depend on mutations of object references.
 
-Additionally Redux embraces the usage of pure functions. A function gets an input, returns an output and does not have other dependencies but pure functions. You can be sure that you will always get the same output when the input stays the same. Both principles, immutability and pure functions, enable you to avoid side effects.
+Additionally Redux embraces the usage of pure functions. A function gets an input, returns an output and does not have other dependencies but pure functions. You can be sure that you will always get the same output when the input stays the same. Both principles, immutability and pure functions, enable you to avoid side effects. (der absatz sollte deutlicher und kürzer sein: Pure fn produces always the same output with the same input and doens't have any side-effects oder so)
 
 MobX is influenced by object-oriented programming, but also by reactive programming. One can declare data as observable and it embraces to mutate the data directly. The data can have plain setters and getters, but the observable makes it possible to retrieve updates once the data changed.
 
-In Redux it would need the following lines of code to add a new user to the global state. You can see how we make use of the ES6 object spread operator to return a new state object.
+In Redux it would need the following lines of code to add a new user to the global state. You can see how we make use of the ES6 object spread operator (object spread war nicht ES6, sondern nur Array spread, object spread ist noch nicht im Standard) to return a new state object.
 
 ```javascript
 // global state
@@ -77,7 +77,7 @@ class UserStore {
 
 ## Learning Curve in React State Management
 
-Both Redux and MobX are mostly used in React applications. But they are standalone libraries for state management, which could be used everywhere without React. Only their interoperability libraries leverage the connection to React components. It is [react-redux](https://github.com/reactjs/react-redux) for Redux + React and [mobx-react](https://github.com/mobxjs/mobx-react) for MobX + React. Later I will explain how to use both in a component tree.
+Both Redux and MobX are mostly used in React applications. But they are standalone libraries for state management, which could be used everywhere without React. Only their interoperability libraries leverage the connection to React components. (solltest anders formulieren: Sowas wie die die interoperability libs machen das Zusammenspiel leichter) It is [react-redux](https://github.com/reactjs/react-redux) for Redux + React and [mobx-react](https://github.com/mobxjs/mobx-react) for MobX + React. Later I will explain how to use both in a component tree.
 
 In recent discussions it happened that people argued about the learning curve in Redux. It was often in the context of React: people began to learn React and already wanted to leverage state management with Redux. Most people would say that React and Redux itself have a good learning curve, but both together can be overwhelming. An alternative therefore would be MobX, because it is more suitable for beginners.
 
@@ -90,7 +90,7 @@ Now you have to make the decision to choose a state management library. You know
 
 Once you are familiar with React components and the internal state management, you can choose a state management library to solve your problem. After I used both libraries, I would say MobX can be very suitable for beginners.
 
-It is suitable, because it can be used for [internal component state in exchange for React setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e) as well. I would say you should keep setState over MobX for internal component state management, but the knowledge that MobX can leverage it quite easy might help to get started with MobX.
+It is suitable, because it can be used for [internal component state in exchange for React setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e) as well. I would say you should keep setState over MobX for internal component state management, but the knowledge that MobX can leverage (nicht sicher ob leverage hier richtig ist) it quite easy might help to get started with MobX.
 
 In MobX one doesn't need to be familiar with functional programming. Terms like immutability might be still foreign. Functional programming is a rising paradigm, but novel for most people in JavaScript. There is a clear trend towards it, but since not everyone has a functional programming background, it might be easier for people with an object-oriented background to adopt the principles of MobX.
 
@@ -141,7 +141,8 @@ Once your application gets bigger and has multiple developers working on it, you
 
 MobX is less opinionated, but by using useStrict you can enforce clearer constraints like in Redux. That's why I wouldn't say one cannot use MobX in scaling applications. There is a clear way of doing things in Redux, but not in MobX. The documentation in MobX even says: "[MobX] does not tell you how to structure your code, where to store state or how to process events." The development team would have to establish a state management architecture in the first place.
 
-State management can be learned. When we recap the recommendations, a newcomer in React would first learn to use setState properly. After a while the newcomer would realize the problems of using only setState to maintain state in a React application. When looking for a solution, the newcomer stumbles upon state management libraries like MobX or Redux. But which one to choose? Since MobX is less opinionated, has less boilerplate and can be used similar to setState I would recommend in smaller projects to give MobX a shot. Once the application grows in size and contributors, one should consider to enforce more restrictions in MobX or give Redux a shot. I enjoyed to use both libraries. Even if you don't use one of them after all, it makes sense to have seen an alternative way of doing state management. Both libraries deal in a different way with state management.
+
+State management can be learned. When we recap the recommendations, a newcomer in React would first learn to use setState properly. After a while the newcomer would realize the problems of using only setState to maintain state in a React application. When looking for a solution, the newcomer (dreimal newcomer hintereiander) stumbles upon state management libraries like MobX or Redux. But which one to choose? Since MobX is less opinionated, has less boilerplate and can be used similar to setState I would recommend in smaller projects to give MobX a shot. Once the application grows in size and contributors, one should consider to enforce more restrictions in MobX or give Redux a shot. I enjoyed using both libraries. Even if you don't use one of them after all, it makes sense to have seen an alternative way of doing state management. Both libraries deal in a different way with state management. 
 
 ## How to refactor?
 
@@ -196,7 +197,7 @@ Whenever I read the comments in a Redux vs MobX discussion, there is always this
 
 Redux library is pretty small. Most of the time you are dealing only with plain JavaScript objects and arrays. It is closer to vanilla JavaScript than MobX. In MobX one wraps the objects and arrays into observable objects which hide most of the boilerplate. There the magic happens, but it is harder to understand the underlying mechanisms. In Redux it is easier to reason about it with plain JavaScript.
 
-Additionally one has again to consider where we came from in single page applications. All frameworks/libraries had the same problems of state management, which eventually got solved by the overarching Flux pattern. Redux is the successor of the pattern. In MobX it goes the opposite direction again. Again we start to mutate objects without embracing the advantages of functional programming. Some people already argue, that it feels again closer to two-way data binding. Maybe people run into the same problems again before they used a state management library. MobX is not opinionated, but it could embrace best practices of how to organize a good to reason about state management architecture. Otherwise people tend to mutate state directly in components.
+Additionally one has again to consider where we came from in single page applications. All frameworks/libraries had the same problems of state management, which eventually got solved by the overarching Flux pattern. Redux is the successor of the pattern. In MobX it goes the opposite direction again. Again we start to mutate objects without embracing the advantages of functional programming. Some people (du z.b. weiter oben) already argue, that it feels again closer to two-way data binding. Maybe people run into the same problems again before they used a state management library. MobX is not opinionated, but it could embrace best practices of how to organize a good to reason about state management architecture. Otherwise people tend to mutate state directly in components.
 
 Both libraries are great. While Redux is already well established, MobX becomes an valid alternative for state management.
 
